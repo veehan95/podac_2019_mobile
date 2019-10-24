@@ -1,3 +1,10 @@
+# run command
+```
+npm run build
+cordova build android
+cordova run android
+```
+
 # mobile_app
 
 > A Vue.js project
