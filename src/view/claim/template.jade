@@ -1,0 +1,6 @@
+div
+  h1 Claimed History
+  ul
+    li(v-for="reward in reward_list")
+      router-link(:to="reward.path") {{ reward }}
+  

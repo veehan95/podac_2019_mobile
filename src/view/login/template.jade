@@ -1,0 +1,12 @@
+.page_section.center
+  #login_form.table
+    div
+      label(for="id") ID:
+      input#id(type="text" name="username" v-model="username")
+    br
+    div
+      label(for="pw") Password:
+      input#pw(type="password" name="password" v-model="password")
+    br
+  #login_submit
+    button(type="button" v-on:click="login()") Login

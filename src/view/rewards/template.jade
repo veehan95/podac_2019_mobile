@@ -1,0 +1,12 @@
+div
+  h1 Rewards
+  p Points: {{ accumulated_points }}
+  p(v-if="loading") loading ...
+  ul(v-else)
+    li(v-for="reward in rewards")
+      button.page_section(@click="claim(reward.id)")
+        p {{ reward.image }}
+        div
+          p {{ reward.name }}
+          p {{ reward.details }}
+          p {{ reward.points }}

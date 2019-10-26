@@ -1,0 +1,19 @@
+Container
+  template(slot="header")
+    #user_info
+      img(src="@/assets/icon/default_user_profile.png")
+      #detail
+        h1 {{ user_name }}
+        p {{ user_email }}
+  template(slot="body")
+    #points.page_section.first
+      p Accumulated Points
+      div(style="width: 200px; height: 200px;position: relative")
+        Pie(:rating="400")
+    ul
+      li.page_section
+        router-link(to="/rate") Rate
+      li.page_section
+        router-link(to="/rewards") Rewards
+      li.page_section
+        router-link(to="/claim_history") Claimed

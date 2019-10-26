@@ -1,0 +1,25 @@
+div
+  h1 Rate
+  img(:src="`data:image/jpeg;base64,${image}`" style="max-height: 300px; max-width: 100%")
+  p retake photo
+  p star
+  Rating(@rating_value="update_rating")
+  
+  label(for="coords") Pin Location
+  input(name="coords.latitude")
+  label(for="location") Location
+  input(name="location" v-model="location_detail")
+  label(for="tags") Tags
+  input(name="tags" v-model="tags")
+  label(for="desc") Description
+  input(name="desc" v-model="description")
+  button(@click="submit_form()") submit
+
+  p values
+  p rating_value: {{rating_value}}
+  p coords: {{coords}}
+  p location_detail: {{location_detail}}
+  p tags: {{tags}}
+  p description: {{description}}
+  
+  p(:v-if="submitting_image || submitting_report") submitting please wait

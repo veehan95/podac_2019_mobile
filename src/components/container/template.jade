@@ -1,0 +1,19 @@
+#body_container
+	.header
+		slot(name="header")
+		button(@click="open_menu()")
+			img(src="@/assets/icon/menu.png")
+	slot(name="body")
+	#menu_container(:style="{display: show_menu ? 'block' : 'none'}")
+		#menu
+			#spacing(@click="close_menu()")
+			#menu_list
+				.header
+					slot(name="header")
+					button(@click="close_menu()") x
+				hr
+				router-link(to="/search")
+					p search
+				p FAQ
+				hr
+				button(@click="logout()") logout

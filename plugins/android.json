@@ -9,6 +9,16 @@
   "installed_plugins": {
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
+    },
+    "cordova-plugin-camera": {
+      "ANDROID_SUPPORT_V4_VERSION": "27.+",
+      "PACKAGE_NAME": "io.podac2019.one_two_three"
+    },
+    "cordova-plugin-console": {
+      "PACKAGE_NAME": "io.podac2019.one_two_three"
+    },
+    "cordova-plugin-geolocation": {
+      "PACKAGE_NAME": "io.podac2019.one_two_three"
     }
   },
   "dependent_plugins": {}
