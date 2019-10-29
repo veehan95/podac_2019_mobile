@@ -8,6 +8,9 @@ export default {
   methods: {
     close_menu() { this.$data.show_menu = false },
     open_menu() { this.$data.show_menu = true },
-    logout() { this.$session.destroy() }
+    logout() {
+      this.$session.destroy()
+      location.reload()
+    }
   }
 }

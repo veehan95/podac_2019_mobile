@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.11.2",
+    "@google/markerclusterer": "^2.0.0",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-eslint": "^8.2.1",
@@ -64,6 +65,7 @@
     "jest": "^22.0.4",
     "jest-serializer-vue": "^0.3.0",
     "jquery": "^3.4.1",
+    "moment": "^2.24.0",
     "nightwatch": "^0.9.12",
     "node-notifier": "^5.1.2",
     "node-sass": "^4.13.0",
@@ -91,6 +93,7 @@
     "vue-session": "^1.0.0",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.2",
+    "vue2-google-maps": "^0.10.7",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.1",

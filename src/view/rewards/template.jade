@@ -1,12 +1,29 @@
-div
-  h1 Rewards
-  p Points: {{ accumulated_points }}
-  p(v-if="loading") loading ...
-  ul(v-else)
-    li(v-for="reward in rewards")
-      button.page_section(@click="claim(reward.id)")
-        p {{ reward.image }}
-        div
-          p {{ reward.name }}
-          p {{ reward.details }}
-          p {{ reward.points }}
+Container
+  template(slot="header")
+    div
+      h1 Rewards
+      p Remaing Points: {{ accumulated_points }}
+  template(slot="body")
+    .fullScreen(v-if="loading")
+      p loading ...
+    .fullScreen(v-else)
+      ul
+        li.clickable(v-for="(reward, i) in rewards" :key="`reward_${i}`")
+          button.page_section(@click="claim(i)" style="width: 100%")
+            img(:src="reward.image" style="max-width: 80px;height:80px;border-radius: 50%")
+            .xxx
+              div
+                p.title {{ reward.name }}
+                p {{ reward.details }}
+                p {{ reward.points }} points
+            div
+              img(src="@/assets/icon/get.png" style="max-width: 60px;height:60px;padding: 10px")
+    .abFull(v-if='show')
+      .whitebg.center(style='padding: 10px')
+        h1 Confirmation
+        p Are you sure u want to exhange {{ showVal.points }} points for a {{ showVal.title }} {{ showVal.detail }}?
+        div(style="display: flex;justify-content:space-between;padding: 20px")
+          button(style="background-color: green" @click='goto_claim()')
+            p Yes
+          button(style="background-color: red" @click="close()")
+            p No

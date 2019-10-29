@@ -1,6 +1,20 @@
-div
-  h1 Thank You
-  p Thanks for helping in improving Penang.
-  p we have some suggestion that you might be interested with.
-  
-  p {{ area_list }}
+Container
+  template(slot="header")
+    div
+      h1 Thank You
+  template(slot="body")
+      p Thanks for helping in improving Penang.
+      p we have some suggestion that you might be interested with.
+      .fullScreen(v-if="loading")
+        p loading ...
+      .fullScreen(v-else)
+        ul
+          li.clickable(v-for="(reward, i) in area_list" :key="`reward_${i}`")
+            button.page_section(@click="claim(i)" style="width: 100%")
+              img(src="@/assets/icon/np.jpeg" style="max-width: 80px;height:80px;border-radius: 50%" v-if="showImage(reward.image)")
+              img(:src="reward.image" style="max-width: 80px;height:80px;border-radius: 50%" v-else)
+              .xxx
+                div
+                  p.title {{ reward.key.replace(/\_/g, ' ') }}
+                  p Total number of rating: {{ reward.rating.number_of_rating }}
+                  p Average rating: {{ avg_rate(reward.rating) }}

@@ -1,3 +1,23 @@
-div
-  h1 Rewards
-  p {{ reward_info }}
+Container
+  template(slot="header")
+    div
+      h1 Rewards
+  template(slot="body")
+    div(style='width: 100%;text-align: center')
+      img(src="@/assets/icon/QR.png" v-if='showQR' style="max-height: 20vh;margin: 20px auto")
+    div(style='display: flex')
+      img(v-if="image != ''" :src="image" style='max-width: 30%')
+      div(style="margin-left: 10px; padding-left: 10px;border-left: solid 1px black;position:relative")
+        table()
+          tr
+            td Code
+            td :
+            td {{ reward_info.code }}
+          tr
+            td By
+            td :
+            td {{ reward_details.name }}
+          tr
+            td details
+            td :
+            td {{ reward_details.details }}

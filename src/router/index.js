@@ -27,7 +27,7 @@ const routes = [
     component: Login,
     meta: { isPublic: true },
   }, {
-    path: '/post_rate/:tags',
+    path: '/post_rate/:tags?',
     name: 'PostRate',
     component: PostRate,
   }, {

@@ -1,12 +1,18 @@
-.page_section.center
-  #login_form.table
-    div
-      label(for="id") ID:
-      input#id(type="text" name="username" v-model="username")
-    br
-    div
-      label(for="pw") Password:
-      input#pw(type="password" name="password" v-model="password")
-    br
-  #login_submit
-    button(type="button" v-on:click="login()") Login
+.page_section.center(style='width: calc(100% - 34px);margin:0 10px')
+  #login_form(style='margin: auto')
+    .table(style='width: 100%')
+      div
+        label(for="id" style='text-align: left') ID
+        p :
+        input#id(type="text" name="username" v-model="username" style="width: 100%")
+      br
+      div
+        label(for="pw" style='text-align: left') Password
+        p :
+        input#pw(type="password" name="password" v-model="password" style="width: 100%")
+      br
+    #login_submit(style='width: 100%')
+      button(type="button" v-on:click="login()" style='width: 100%') Login
+  #shade(v-if="loading")
+    p.center Loading
+  

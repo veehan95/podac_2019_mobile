@@ -13,13 +13,23 @@ export default {
   name: 'Pie_Chart',
   props: ["rating"],
   mounted() {
-    this.renderChart({
-      legend: { display: false },
-      datasets: [{
-        backgroundColor: ['#DAE02A', '#6D6D6D'],
-        data: [1000, this.$props.rating],
-        borderWidth: 0
-      }]
-    }, options)
+    this.print()
+  },
+  methods: {
+    print() {
+      this.renderChart({
+        legend: { display: false },
+        datasets: [{
+          backgroundColor: ['#DAE02A', 'rgba(0,0,0,0)'],
+          data: [this.$props.rating, 1000 - this.$props.rating],
+          borderWidth: 0
+        }]
+      }, options)
+    },
+  },
+  watch: {
+    rating: function(newVal) {
+      this.print()
+    }
   },
 }

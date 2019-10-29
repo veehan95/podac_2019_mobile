@@ -1,28 +1,60 @@
 import firebase from 'firebase'
 import firebaseConfig from '@/firebase.json'
 import uuidv1 from 'uuid/v1'
+import moment from 'moment'
 
 firebase.initializeApp(firebaseConfig)
 
 const db = firebase.database()
 const storage = firebase.storage()
 
+
+const update_rating = (rating, val) => {
+  rating = rating ? rating : {}
+  return {
+    total: rating.total ? rating.total += val.rating : val.rating,
+    number_of_rating: rating.number_of_rating ? rating.number_of_rating += 1 : 1,
+  }
+}
+
+const update_history = (history, id, val) => {
+  const key = moment().format('YYYY_MM_DD')
+  history = history ? history : {}
+
+  if (history[key]) {
+    history[key].report.push(id)
+    history[key].rating = update_rating(history[key].rating, val)
+  } else {
+    history[key] = {
+      report: [id],
+      rating: update_rating({}, val)
+    }
+  }
+
+  return history
+}
+
 const available_rewards_ref = db.ref("available_rewards")
-const rewards_ref = db.ref("rewards")
+const rewards_ref = db.ref("reward")
 const user_ref = db.ref("user")
 const feedbacks_ref = db.ref("feedbacks")
 const images_ref = storage.ref("images")
-const area_ref = db.ref("area")
+const area_ref = db.ref("location_detail")
 
 const get_available_rewards = async () =>{
   return new Promise(res => {
-    available_rewards_ref
-      .once("value")
-      .then(snapshot => res(
-        Promise.all(
-          snapshot.val().filter(id => id.length > 0).map(get_reward)
+    rewards_ref
+      .once('value')
+      .then(snapshot => {
+        const val = snapshot.val()
+        res(
+          Object.keys(val)
+            .filter(key => val[key].available == true)
+            .map(key => {
+              return {id:key, ...val[key]}
+            })
         )
-      ))
+      })
   })
 }
 
@@ -44,6 +76,16 @@ const get_user = async (id) => {
     user_ref
       .child(id)
       .once("value")
+      .then(snapshot => res(snapshot.val()))
+  })
+}
+
+const get_user_id = async (id) => {
+  return new Promise(res => {
+    user_ref
+      .orderByChild('username')
+      .equalTo(id)
+      .once('value')
       .then(snapshot => res(snapshot.val()))
   })
 }
@@ -99,11 +141,25 @@ const upload_image = async (image_blob, filename=uuidv1()) => {
   return filename
 }
 
-const submit_feedback = async (loc, values) => {
-  feedbacks_ref
-    .child(loc)
-    .push()
-    .set(values)
+const submit_feedback = async (val) => {
+  const id = uuidv1()
+  await db.ref("feedback").child(id).set(val)
+  await db.ref("location_detail")
+    .child(val.location.replace(/\s/g, '_'))
+    .transaction(x => {
+      x = x ? x : {}
+      x.rating = update_rating(x.rating, val)
+      x.history = update_history(x.history, id, val)
+      return x
+    })
+  await db.ref("user")
+    .child(val.user)
+    .child('feedbacks')
+    .transaction(x => x ? x.concat(id): [id])
+  await db.ref("user")
+    .child(val.user)
+    .child('points')
+    .transaction(x => x + 100 < 1000 ? x + 100: 1000)
 }
 
 const tag_area = async (loc, tags) => {
@@ -149,6 +205,14 @@ const get_area_with_tag = async (tags) => {
   })
 }
 
+const get_image = async (image_name)=> {
+  return new Promise(res => {
+    images_ref
+      .child(image_name)
+      .getDownloadURL()
+      .then(url => res(url))
+  })
+}
 export {
   get_available_rewards,
   get_user,
@@ -161,4 +225,7 @@ export {
   get_area_tag,
   get_area_detail,
   get_area_with_tag,
+  get_image,
+  get_reward,
+  get_user_id,
 }

@@ -1,19 +1,28 @@
 Container
   template(slot="header")
     #user_info
-      img(src="@/assets/icon/default_user_profile.png")
+      img(v-if="image && image.length > 0" :src="image")
+      img(v-else src="@/assets/icon/default_user_profile.png")
       #detail
         h1 {{ user_name }}
         p {{ user_email }}
   template(slot="body")
     #points.page_section.first
-      p Accumulated Points
-      div(style="width: 200px; height: 200px;position: relative")
-        Pie(:rating="400")
+      h3 Accumulated Points
+      div(style="width: 200px; height: 200px;position: relative;margin:auto")
+        Pie(:rating="points")
+        .center
+          p(style="text-align: center") {{ points }}
     ul
       li.page_section
-        router-link(to="/rate") Rate
+        router-link(to="/rate" style="display: flex")
+          img(src="@/assets/icon/rating.png" style="height: 80px; max-width:80px")
+          h5 Rate
       li.page_section
-        router-link(to="/rewards") Rewards
+        router-link(to="/rewards" style="display: flex")
+          img(src="@/assets/icon/reward.png" style="height: 80px; max-width:80px")
+          h5 Rewards
       li.page_section
-        router-link(to="/claim_history") Claimed
+        router-link(to="/claim_history" style="display: flex")
+          img(src="@/assets/icon/history.png" style="height: 80px; max-width:80px")
+          h5 Claimed

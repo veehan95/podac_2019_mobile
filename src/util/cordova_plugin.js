@@ -13,8 +13,8 @@ const current_coords = () => {
     navigator.geolocation.watchPosition(
       position => {
         resolve({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
         })
       },
       reject,

@@ -1,19 +1,26 @@
 #body_container
 	.header
 		slot(name="header")
-		button(@click="open_menu()")
+		button(@click="open_menu()" style="background-color:inherit;")
 			img(src="@/assets/icon/menu.png")
 	slot(name="body")
 	#menu_container(:style="{display: show_menu ? 'block' : 'none'}")
 		#menu
 			#spacing(@click="close_menu()")
 			#menu_list
-				.header
-					slot(name="header")
-					button(@click="close_menu()") x
-				hr
-				router-link(to="/search")
-					p search
-				p FAQ
-				hr
-				button(@click="logout()") logout
+				ul#fill
+					li
+						router-link(to="/")
+							h5 Home
+					li
+						router-link(to="/rate")
+							h5 Rate
+					li
+						router-link(to="/rewards")
+							h5 Rewards
+					li
+						router-link(to="/claim_history")
+							h5 Claimed
+				#nofill
+					hr
+					button(@click="logout()" style="background-color: inherit;color: black") logout
