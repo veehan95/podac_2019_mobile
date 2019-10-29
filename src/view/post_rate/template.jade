@@ -15,6 +15,6 @@ Container
               img(:src="reward.image" style="max-width: 80px;height:80px;border-radius: 50%" v-else)
               .xxx
                 div
-                  p.title {{ reward.key.replace(/\_/g, ' ') }}
+                  p.title {{ shortenname(reward.key.replace(/\_/g, ' ')) }}
                   p Total number of rating: {{ reward.rating.number_of_rating }}
                   p Average rating: {{ avg_rate(reward.rating) }}

@@ -22,6 +22,7 @@ export default {
           .map(x => {
             return { ...val[x], key: x}
           })
+          .sort((a, b) => (a.total/a.number_of_rating) == (b.total/b.number_of_rating) ? 0 : +((a.total/a.number_of_rating) > (b.total/b.number_of_rating)) || -1)
       })
       .then(val => {
         this.$data.area_list = val
@@ -30,6 +31,7 @@ export default {
   },
   methods: {
     showImage(i) { return i != undefined ? i.length <= 0 : true },
-    avg_rate(i) { return (i.total / i.number_of_rating).toFixed(2) }
+    avg_rate(i) { return (i.total / i.number_of_rating).toFixed(2) },
+    shortenname(name) { return name.substring(0, 30) + (name.length > 27 ? '...' : '') },
   }
 }
