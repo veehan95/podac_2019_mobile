@@ -28,18 +28,12 @@ export default {
   async mounted() {
     this.get_gps()
 
-    // this.$refs.gmap.$on('click', () => alert('asdghfashudfghj'))
-    // this.google.maps.event.addListener(map, 'click', (e) => {
-    //   // this.$data.location.position.lat = e.latLng.lat()
-    //   // this.$data.location.position.lng = e.latLng.lng()
-    //   alert('mappppp')
-    // })
-    // navigator.camera.getPicture(
-    //   image => this.$data.image = image,
-    //   alert,
-    //   {quality: 50, destinationType: Camera.DestinationType.DATA_URL}
-    // )
-    // await this.get_image(image)
+    navigator.camera.getPicture(
+      image => this.$data.image = image,
+      alert,
+      {quality: 50, destinationType: Camera.DestinationType.DATA_URL}
+    )
+    await this.get_image(image)
   },
   watch: {
     coords: function(x) { this.geocode() },

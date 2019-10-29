@@ -19,7 +19,7 @@ export default {
     }
   },
   mounted() {
-    get_reward_history(this.$session.get("user_id"))
+    get_reward_history(this.$session.get("user").id)
       .then(list => {
         Promise.all(Object.keys(list).map(async (key) => {
             return {

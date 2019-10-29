@@ -14,7 +14,7 @@ export default {
     }
   },
   mounted() {
-    get_user_reward(this.$session.get("user_id"), this.$route.params.id)
+    get_user_reward(this.$session.get("user").id, this.$route.params.id)
       .then(x => {
         this.$data.reward_info = x
         return x

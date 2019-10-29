@@ -41,7 +41,7 @@ export default {
       }
     },
     async goto_claim() {
-      claim_reward(this.$session.get("user_id"), this.$data.showVal.key)
+      claim_reward(this.$session.get("user").id, this.$data.showVal.key)
         .then(valid => {
           if (valid) {
             this.update_pointes()
@@ -59,7 +59,7 @@ export default {
       }
     },
     async update_pointes() {
-      this.$data.accumulated_points = (await get_user(this.$session.get("user_id"))).points
+      this.$data.accumulated_points = (await get_user(this.$session.get("user").id)).points
     }
   }
 }
